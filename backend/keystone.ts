@@ -4,6 +4,7 @@ import {Product} from "./schemas/Product";
 import 'dotenv/config';
 import {createAuth} from "@keystone-next/auth";
 import {statelessSessions, withItemData} from "@keystone-next/keystone/session";
+import {ProductImage} from "./schemas/ProductImage";
 
 const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost:27017/keystone-sickfits';
 const sessionConfig = {
@@ -38,6 +39,7 @@ export default withAuth(config({
     //Schema items go in here
     User,
     Product,
+    ProductImage,
   }),
   ui: {
     // Show UI only for people who pass this test
