@@ -1,7 +1,7 @@
+import Page from '../components/Page';
+
 export default function IndexPage() {
   return (
-    <div>
-      <p>Hiho!</p>
-    </div>
+    <p>Hiho!</p>
   );
 }
