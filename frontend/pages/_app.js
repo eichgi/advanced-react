@@ -2,20 +2,36 @@ import React from 'react';
 import NProgress from 'nprogress';
 import Router from "next/router";
 import Page from "../components/Page";
+import {ApolloProvider} from "@apollo/client";
+
+import 'nprogress/nprogress.css';
+import '../components/styles/nprogress.css';
+import withData from "../lib/withData";
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-import 'nprogress/nprogress.css';
-import '../components/styles/nprogress.css';
-
-const MyApp = ({Component, pageProps}) => {
+const MyApp = ({Component, pageProps, apollo}) => {
+  console.log(apollo);
   return (
-    <Page>
-      <Component {...pageProps}/>
-    </Page>
+    <ApolloProvider client={apollo}>
+      <Page>
+        <Component {...pageProps}/>
+      </Page>
+    </ApolloProvider>
   );
 };
 
-export default MyApp;
+MyApp.getInitialProps = async ({Component, ctx}) => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = Component.getInitialProps(ctx);
+  }
+
+  pageProps.query = ctx.query;
+  return {pageProps};
+};
+
+export default withData(MyApp);
