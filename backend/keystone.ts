@@ -5,6 +5,7 @@ import 'dotenv/config';
 import {createAuth} from "@keystone-next/auth";
 import {statelessSessions, withItemData} from "@keystone-next/keystone/session";
 import {ProductImage} from "./schemas/ProductImage";
+import {insertSeedData} from "./seed-data";
 
 const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost:27017/keystone-sickfits';
 const sessionConfig = {
@@ -33,7 +34,12 @@ export default withAuth(config({
   db: {
     adapter: 'mongoose',
     url: databaseUrl,
-    //Add date seeding here
+    async onConnect(keystone) {
+      console.log('Connected to the DB');
+      if (process.argv.includes('--seed-data')) {
+        await insertSeedData(keystone);
+      }
+    }
   },
   lists: createSchema({
     //Schema items go in here
