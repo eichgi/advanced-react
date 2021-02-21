@@ -4,6 +4,7 @@ import Form from "./styles/Form";
 import {gql, useMutation} from "@apollo/client";
 import DisplayError from "./ErrorMessage";
 import {ALL_PRODUCTS_QUERY} from "./Products";
+import Router from "next/router";
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -57,9 +58,12 @@ const CreateProduct = () => {
     //console.log(inputs);
 
     //Submit input field
-    await createProduct();
+    const res = await createProduct();
     console.log("Response data: ", data);
     clearForm();
+
+    //Go to products page
+    await Router.push({pathname: `/product/${res.data.createProduct.id}`});
   };
 
   return (
