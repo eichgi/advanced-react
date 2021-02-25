@@ -62,7 +62,7 @@ const CreateProduct = () => {
     console.log("Response data: ", data);
     clearForm();
 
-    //Go to products page
+    //Go to index page
     await Router.push({pathname: `/product/${res.data.createProduct.id}`});
   };
 

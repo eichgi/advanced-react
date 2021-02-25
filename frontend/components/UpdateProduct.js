@@ -78,7 +78,7 @@ const UpdateProduct = ({id}) => {
     console.log("Response data: ", res);
     //clearForm();
 
-    //Go to products page
+    //Go to index page
     //await Router.push({pathname: `/product/${res.data.createProduct.id}`});
   };
 
