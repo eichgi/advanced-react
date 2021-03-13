@@ -7,6 +7,7 @@ import {statelessSessions, withItemData} from "@keystone-next/keystone/session";
 import {ProductImage} from "./schemas/ProductImage";
 import {insertSeedData} from "./seed-data";
 import {sendPasswordResetEmail} from "./lib/mail";
+import {CartItem} from "./schemas/CartItem";
 
 const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost:27017/keystone-sickfits';
 const sessionConfig = {
@@ -53,6 +54,7 @@ export default withAuth(config({
     User,
     Product,
     ProductImage,
+    CartItem,
   }),
   ui: {
     // Show UI only for people who pass this test
